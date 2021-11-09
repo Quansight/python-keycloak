@@ -316,7 +316,7 @@ class KeycloakAdmin:
         data_raw = self.raw_delete(URL_ADMIN_REALM.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_codes=[204])
 
-    def get_users(self, query=None):
+    def get_users(self, **query):
         """
         Return a list of users, filtered according to query parameters
 
@@ -618,7 +618,7 @@ class KeycloakAdmin:
         data_raw = self.raw_get(URL_ADMIN_SERVER_INFO)
         return raise_error_from_response(data_raw, KeycloakGetError)
 
-    def get_groups(self):
+    def get_groups(self, **query):
         """
         Returns a list of groups belonging to the realm
 
@@ -628,7 +628,7 @@ class KeycloakAdmin:
         :return: array GroupRepresentation
         """
         params_path = {"realm-name": self.realm_name}
-        return self.__fetch_all(URL_ADMIN_GROUPS.format(**params_path))
+        return self.__fetch_all(URL_ADMIN_GROUPS.format(**params_path), query)
 
     def get_group(self, group_id):
         """
